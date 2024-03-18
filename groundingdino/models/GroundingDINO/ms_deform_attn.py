@@ -326,8 +326,10 @@ class MultiScaleDeformableAttention(nn.Module):
                     reference_points.shape[-1]
                 )
             )
-    
-        if torch.cuda.is_available() and value.is_cuda:
+
+        # --------------------------- only use cpu ---------------------------
+        # if torch.cuda.is_available() and value.is_cuda:
+        if False:
             halffloat = False
             if value.dtype == torch.float16:
                 halffloat = True
@@ -357,7 +359,7 @@ class MultiScaleDeformableAttention(nn.Module):
             output = output.permute(1, 0, 2)
 
         return output
-
+        # --------------------------------------------------------------------
 
 def create_dummy_class(klass, dependency, message=""):
     """
